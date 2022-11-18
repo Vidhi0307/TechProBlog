@@ -1,0 +1,93 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>TechProBlog</title>
+  <link rel="stylesheet" href="/css/jass.css">
+  <link rel="stylesheet" href="/css/style.css">
+</head>
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Purrfection</title>
+  <link rel="stylesheet" href="/css/jass.css">
+  <link rel="stylesheet" href="/css/style.css">
+  <script src="https://cdn.tailwindcss.com"></script>
+  <link rel="stylesheet" href="https://unpkg.com/flowbite@1.5.3/dist/flowbite.min.css" />
+</head>
+
+<body>
+
+  <nav class=" bg-black border-gray-200 navbar">
+
+    <ul class="container  flex flex-wrap justify-space-around  mx-auto">
+
+      <li>
+        <a
+          class="block py-2  rounded hover:bg-gray-100 md:hover:bg-transparent md:border-0 md:hover:text-blue-700 md:p-0 
+              dark:text-gray-400 md:dark:hover:text-white dark:hover:bg-gray-700 dark:hover:text-white md:dark:hover:bg-transparent text-green-500 text-2xl">Home</a>
+      </li>
+      <li>
+        <a href="./dashboard"
+          class="block py-2  rounded hover:bg-gray-100 md:hover:bg-transparent md:border-0 md:hover:text-blue-700 md:p-0 
+              dark:text-gray-400 md:dark:hover:text-white dark:hover:bg-gray-700 dark:hover:text-white md:dark:hover:bg-transparent text-green-500 text-2xl">Dashboard</a>
+      </li>
+
+      {{#if logged_in}}
+      <li>
+        <a href="/"
+          class="block px-2  rounded hover:bg-gray-100 md:hover:bg-transparent md:border-0 md:hover:text-blue-700 md:p-0 
+              dark:text-gray-400 md:dark:hover:text-white dark:hover:bg-gray-700 dark:hover:text-white md:dark:hover:bg-transparent text-green-500 text-2xl"
+          id="logout">Logout</a>
+      </li>
+      {{else}}
+      <li>
+        <a href="/login"
+          class="block py-2 pr-4 pl-3 rounded hover:bg-gray-100 md:hover:bg-transparent md:border-0 md:hover:text-blue-700 md:p-0 
+              dark:text-gray-400 md:dark:hover:text-white dark:hover:bg-gray-700 dark:hover:text-white md:dark:hover:bg-transparent text-green-500 text-2xl">Login</a>
+      </li>
+      {{/if}}
+      {{#if activeUser}}
+      <li
+        class="block py-2 pr-4 pl-3 rounded hover:bg-gray-100 md:hover:bg-transparent md:border-0 md:hover:text-blue-700 md:p-0 
+              dark:text-gray-400 md:dark:hover:text-white dark:hover:bg-gray-700 dark:hover:text-white md:dark:hover:bg-transparent text-green-500 text-2xl">
+        Hi
+        {{activeUser.first_name}}!</li>
+      {{/if}}
+    </ul>
+    <div><span
+        class="block py-2 pr-4 pl-3 rounded hover:bg-gray-100 md:hover:bg-transparent md:border-0 md:hover:text-blue-700 md:p-0 
+              dark:text-gray-400 md:dark:hover:text-white dark:hover:bg-gray-700 dark:hover:text-white md:dark:hover:bg-transparent text-green-500 text-4xl">The
+        Tech Blog</span></div>
+
+    </div>
+  </nav>
+
+  <main class="mt-5">
+    <!-- Render the sub layout -->
+    {{{ body }}}
+  </main>
+
+
+
+  <!-- Render script for logged in users only -->
+  {{#if logged_in}}
+  <script src="/js/logout.js"></script>
+  {{/if}}
+
+  <script src="https://unpkg.com/flowbite@1.5.1/dist/flowbite.js"></script>
+  {{!--
+  <script src="/js/main.js"></script> --}}
+
+  <footer class="p-4 mt-4 bg-white rounded-lg shadow flex items-center justify-center p-6">
+    <span class="text-sm text-gray-500 sm:text-center dark:text-gray-400">© 2022 <a href="https://flowbite.com/"
+        class="hover:underline">TechProBlog™</a>. Powered by Vidhi
+    </span>
+  </footer>
+
+</html>
