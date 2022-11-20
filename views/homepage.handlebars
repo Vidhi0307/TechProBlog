@@ -1,28 +1,15 @@
-<!-- Loop over each object in the projects array -->
-{{!-- {{#each blogData as |blogData| }}
-<div class="row mb-4 project">
-  <div class="col-md-5">
-    <h2>
-      <!-- Call helper function with triple brackets to render the emoji span as HTML -->
+{{#each blogsInfo as |blogs|}}
+<a href="/blogs/{{blogs.id}}"
+  class="flex flex-col items-center bg-white rounded-lg border shadow-md md:flex-row hover:bg-gray-100 adList">
 
-      <a>{{blogData.post_desc}}</a>
-    </h2> --}}
-    {{!-- <p>
-      <span for="img" aria-label="money">💲</span>
-      <!-- Pass needed_funding value to the helper function -->
-      <span class="dollar-amount">{{format_amount project.needed_funding}}</span>
-      needed!
+  <div class="flex flex-col justify-between p-4 leading-normal">
+    <h5 class="mb-2 text-2xl font-bold tracking-tight block uppercase tracking-wide text-gray-900">
+      {{blogs.post_name}} Posted by on<p class="mb-3 font-normal text-gray-700">{{blogs.date_created}}</p>
 
-    </p>
-    <p>Created by {{project.user.name}} on {{format_date project.date_created}}</p>
+      <h5 class="mb-2 text-xl font-bold tracking-tight block uppercase tracking-wide mb-6 text-gray-500 md:text-lg">
+        ({{blogs.post_desc}})</h5>
+    </h5>
+    <p class="mb-3 font-normal text-gray-700">{{blogs.date_created}}</p>
   </div>
-  <div class="col-md-7">
-    <p>
-      {{project.description}}
-    </p> --}}
-    {{!--
-  </div>
-</div>
-{{/each}} --}}
-
-<span>Hello</span>
+</a>
+{{/each}}
