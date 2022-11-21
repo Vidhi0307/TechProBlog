@@ -5,7 +5,7 @@ const exphbs = require('express-handlebars');
 
 const routes = require('./controllers');
 const helpers = require('./utils/helpers');
-const { PetAds } = require('./models/');
+
 
 
 const sequelize = require('./config/connection');

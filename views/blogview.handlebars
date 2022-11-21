@@ -2,8 +2,10 @@
     <div class="flex-row ">
         <h5 class="mb-2 text-2xl font-bold tracking-tight block uppercase tracking-wide text-gray-900">
             {{blog.post_name}}
-            <div class="text-sm">Posted by {{blogs.user.name}}on {{blogs.date_created}}</p>
+            <div class="text-sm">Posted by {{blog.user.name}}on {{blog.date_created}}</p>
 
             </div>
-            <div>{{blog.Comments.comment}}</div>
+            {{!-- <div>{{blogData.Comments.comment}}</div> --}}
     </div>
+
+    <h1>Comments</h1>

@@ -3,9 +3,6 @@ header,
   border-bottom: 1px solid #ccc;
 }
 
-body {
-  background-color: rgb(160, 240, 207);
-}
 
 .no-button {
   background: none;

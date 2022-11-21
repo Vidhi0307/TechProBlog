@@ -1,24 +1,21 @@
-{{#each userblogsInfo as |userblogs|}}
-<a href="/blogs/{{blogs.id}}"
+{{#each myblogsInfo as |userblogs|}}
+<a href="/blogs/{{userblogs.id}}"
   class="flex flex-col items-center bg-white rounded-lg border shadow-md md:flex-row hover:bg-gray-100 adList">
 
   <div class="flex flex-col justify-between p-4 leading-normal">
     <h5 class="mb-2 text-2xl font-bold tracking-tight block uppercase tracking-wide text-gray-900">
-      {{blogs.post_name}} <h5
+      {{userblogs.post_name}} <h5
         class="mb-2 text-xl font-bold tracking-tight gitblock uppercase tracking-wide mb-6 text-gray-500 md:text-lg">
-        ({{blogs.post_desc}})</h5>
+        ({{userblogs.post_desc}})</h5>
     </h5>
-    <p class="mb-3 font-normal text-gray-700">{{blogs.date_created}}</p>
+    <p class="mb-3 font-normal text-gray-700">{{userblogs.date_created}}</p>
   </div>
 </a>
 {{/each}}
-<div class="bg-gray-50 px-4 py-3 text-right sm:px-6">
+<div class="bg-gray-50 px-4 py-3 align-center  text-right sm:px-6">
   <button
     class="transition duration-500 bg-orange-500 hover:bg-orange-700 text-white font-bold py-2 px-4 rounded focus:outline-none focus:shadow-outline"
     onclick=" window.location.href='/postblog'">
     New post
   </button>
 </div>
-
-{{!--
-<script src=" ./js/dashboard.js"></script> --}}
