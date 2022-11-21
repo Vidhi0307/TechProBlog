@@ -2,14 +2,18 @@
 <a href="/blogs/{{blogs.id}}"
   class="flex flex-col items-center bg-white rounded-lg border shadow-md md:flex-row hover:bg-gray-100 adList">
 
-  <div class="flex flex-col justify-between p-4 leading-normal">
-    <h5 class="mb-2 text-2xl font-bold tracking-tight block uppercase tracking-wide text-gray-900">
-      {{blogs.post_name}} Posted by on<p class="mb-3 font-normal text-gray-700">{{blogs.date_created}}</p>
+  <div class="flex flex-col justify-space-around p-5 m-3 leading-normal">
+    <div class="flex-row ">
+      <h5 class="mb-2 text-2xl font-bold tracking-tight block uppercase tracking-wide text-gray-900">
+        {{blogs.post_name}}
+        <div class="text-sm">Posted by {{blogs.user.name}}on {{blogs.date_created}}</p>
+        </div>
+    </div>
 
-      <h5 class="mb-2 text-xl font-bold tracking-tight block uppercase tracking-wide mb-6 text-gray-500 md:text-lg">
-        ({{blogs.post_desc}})</h5>
+    <h5 class="mb-2 text-xl font-bold tracking-tight block uppercase tracking-wide mb-6 text-gray-500 md:text-lg">
+      ({{blogs.post_desc}})</h5>
     </h5>
-    <p class="mb-3 font-normal text-gray-700">{{blogs.date_created}}</p>
+
   </div>
 </a>
 {{/each}}

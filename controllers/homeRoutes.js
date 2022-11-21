@@ -2,11 +2,21 @@ const router = require('express').Router();
 const { Blogs, User } = require('../models');
 const withAuth = require('../utils/auth');
 
+
+
+//route for homepage
 router.get('/', async (req, res) => {
   try {
     // Get all projects and JOIN with user data
     const blogsData = await Blogs.findAll({
-      include: { model: User }
+      include: [
+        {
+          model: User,
+          attributes: [
+            'name',
+          ],
+        },
+      ],
     });
 
     // Serialize data so the template can read it
@@ -19,32 +29,101 @@ router.get('/', async (req, res) => {
       logged_in: req.session.logged_in
     });
   } catch (err) {
+    console.log(blogsInfo);
     res.status(500).json(err);
   }
 });
 
+
+
 router.get('/dashboard', async (req, res) => {
   try {
-    /*     const projectData = await Blogs.findByPk(req.params.id, {
-          include: [
-            {
-              model: User,
-              attributes: ['name'],
-            },
-          ],
-        });
-    
-        const project = projectData.get({ plain: true });
-    
-        res.render('project', {
-          ...project,
-          logged_in: req.session.logged_in
-        }); */
-    req.sessionID("Hello");
+    console.log("hello");
+    res.render('dashboard', {
+
+      logged_in: req.session.logged_in
+    });
+
+  } catch (err) {
+    console.log("hello");
+    res.status(500).json(err);
+  }
+});
+
+
+router.get('/postblog', async (req, res) => {
+  try {
+    console.log("hello");
+    res.render('createpost', {
+
+      logged_in: req.session.logged_in
+    });
+
+  } catch (err) {
+    console.log("hello");
+    res.status(500).json(err);
+  }
+});
+
+
+
+
+
+router.get('/blogs/:id', async (req, res) => {
+  try {
+    console.log("hello");
+    const blogData = await Blogs.findByPk(req.params.id, {
+      include: [
+        {
+          model: Comments,
+          attributes: ['comment', 'user_id'],
+        },
+      ],
+    });
+
+
+    if (!blogData) {
+      res.redirect('/404');
+    }
+    const blog = blogData.get({ plain: true });
+    const user_id = blog.Comments.user_id;
+    var correctUser = false;
+
+    if (req.session.user_id == user_id) {
+      correctUser = true
+    };
+
+    res.render('blogview', {
+      blog,
+      correctUser,
+      logged_in: req.session.logged_in
+    });
   } catch (err) {
     res.status(500).json(err);
   }
 });
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 
 
 router.get('/login', (req, res) => {

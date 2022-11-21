@@ -3,6 +3,7 @@ const sequelize = require('../config/connection');
 
 const seedUsers = require('./userData');
 const seedBlogs = require('./blogsData');
+const seedComments = require('./commentData');
 /* const comments = require('./comments.json'); */
 
 const seedDatabase = async () => {
@@ -18,7 +19,7 @@ const seedDatabase = async () => {
 
   console.log('\n----- blog SEEDED-----\n');
 
-
+  await seedComments()
 
 
   process.exit(0);
