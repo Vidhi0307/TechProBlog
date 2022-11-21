@@ -10,6 +10,10 @@ router.post('/', async (req, res) => {
       req.session.logged_in = true;
 
       res.status(200).json(userData);
+      res.render('homepage', {
+        blogsInfo,
+        logged_in: req.session.logged_in
+      });
     });
   } catch (err) {
     res.status(400).json(err);
@@ -18,12 +22,12 @@ router.post('/', async (req, res) => {
 
 router.post('/login', async (req, res) => {
   try {
-    const userData = await User.findOne({ where: { email: req.body.email } });
+    const userData = await User.findOne({ where: { name: req.body.username } });
 
     if (!userData) {
       res
         .status(400)
-        .json({ message: 'Incorrect email or password, please try again' });
+        .json({ message: 'Incorrect name or password, please try again' });
       return;
     }
 
@@ -32,7 +36,7 @@ router.post('/login', async (req, res) => {
     if (!validPassword) {
       res
         .status(400)
-        .json({ message: 'Incorrect email or password, please try again' });
+        .json({ message: 'Incorrect name or password, please try again' });
       return;
     }
 
