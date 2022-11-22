@@ -19,7 +19,7 @@ const seedDatabase = async () => {
 
   console.log('\n----- blog SEEDED-----\n');
 
-  await seedComments()
+  // await seedComments()
 
 
   process.exit(0);

@@ -67,16 +67,15 @@ router.put('/:id', async (req, res) => {
     try {
 
         console.log("PUT REQUEST" + req.body);
-        const blog = await Blogs.update({
-            id: req.body.id,
-            post_name: req.body.post_name,
-            post_desc: req.body.post_desc
-        }, {
-            where: {
-                id: req.params.id,
-            },
+        const blog = await Blogs.update(req.body,
+            /*  post_name: req.body.post_name,
+             post_desc: req.body.post_desc */
+            {
+                where: {
+                    id: req.params.id,
+                },
 
-        });
+            });
 
         if (!blog) {
             res.status(404).json({ message: 'No ads found with this id!' });

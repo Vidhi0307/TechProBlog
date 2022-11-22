@@ -1,12 +1,8 @@
 const { Model, DataTypes } = require('sequelize');
-const bcrypt = require('bcrypt');
+
 const sequelize = require('../config/connection');
 
-class Comments extends Model {
-    checkPassword(loginPw) {
-        return bcrypt.compareSync(loginPw, this.password);
-    }
-}
+class Comments extends Model { }
 
 Comments.init(
     {
@@ -23,11 +19,19 @@ Comments.init(
         blog_id: {
             type: DataTypes.INTEGER,
             allowNull: false,
+            references: {
+                model: 'blogs',
+                key: 'id',
+            }
 
         },
         user_id: {
-            type: DataTypes.STRING,
+            type: DataTypes.INTEGER,
             allowNull: false,
+            references: {
+                model: 'user',
+                key: 'id',
+            }
 
         },
     },

@@ -12,7 +12,7 @@ const updateBlog = async (event) => {
         // Send a POST request to the API endpoint
         const response = await fetch(`/api/dashboard/${id}`, {
             method: 'PUT',
-            body: JSON.stringify({ id, post_name, post_desc }),
+            body: JSON.stringify({ post_name, post_desc }),
             headers: { 'Content-Type': 'application/json' },
         });
 
