@@ -1,0 +1,17 @@
+<div class="flex flex-col justify-space-around p-5 m-3 leading-normal">
+    <form class="form modify-blog-form"></form>
+    <div class="form-group">
+        <h5 class="mb-2 text-2xl font-bold tracking-tight block uppercase tracking-wide text-gray-900">
+            <input type="text" display='none' id="blog-id" value="{{blog.id}}"></input>
+            <div>Title:: <input type="text" id="blog-title" value="{{blog.post_name}}"></input></div>
+            <div class="text-sm">Content<input type="text" id="blog-content" value="{{blog.post_desc}}"></input></p>
+            </div>
+
+    </div>
+    <div class="form-group">
+        <button class="btn btn-primary" id="update-blog" type="submit">Update</button>
+        <button class="btn btn-primary align-center" id="delete-blog">Delete</button>
+    </div>
+    </form>
+
+    <script src="../js/blogmodify.js"></script>

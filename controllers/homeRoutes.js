@@ -11,9 +11,6 @@ router.get('/', async (req, res) => {
     const blogsData = await Blogs.findAll({
       include: { model: User }
     });
-
-
-
     // Serialize data so the template can read it
     const blogsInfo = blogsData.map((blogs) => blogs.get({ plain: true }));
 
@@ -81,9 +78,6 @@ router.get('/postblog', async (req, res) => {
 });
 
 
-
-
-
 router.get('/blogs/:id', async (req, res) => {
   try {
 
@@ -91,18 +85,10 @@ router.get('/blogs/:id', async (req, res) => {
       include: { model: User }
     });
 
-
-
     if (!blogData) {
       res.redirect('/404');
     }
     const blog = blogData.get({ plain: true });
-
-    /*   var correctUser = false;
- 
-     if (req.session.user_id == user_id) {
-       correctUser = true
-     };  */
 
     res.render('blogview', {
       blog,
@@ -113,28 +99,49 @@ router.get('/blogs/:id', async (req, res) => {
   }
 });
 
+router.get('/myblogs/:id', async (req, res) => {
+  try {
+
+    const blogData = await Blogs.findByPk(req.params.id, {
+      include: { model: User }
+    });
+
+    if (!blogData) {
+      res.redirect('/404');
+    }
+    const blog = blogData.get({ plain: true });
+
+    res.render('modifyblog', {
+      blog,
+      logged_in: req.session.logged_in
+    });
+  } catch (err) {
+    res.status(500).json(err);
+  }
+});
 
 
 
+/* router.get('/:id', async (req, res) => {
+  try {
+    console.log("HEYYYYYYYY Vidhi" + req.params.id)
+    const blogData = await Blogs.findByPk(req.params.id, {
+      include: { model: User }
+    });
 
+    if (!blogData) {
+      res.redirect('/404');
+    }
+    const blog = blogData.get({ plain: true });
 
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
+    res.render('modifyblog', {
+      blog,
+      logged_in: req.session.logged_in
+    });
+  } catch (err) {
+    res.status(500).json(err);
+  }
+}); */
 
 router.get('/login', (req, res) => {
   // If the user is already logged in, redirect the request to another route
