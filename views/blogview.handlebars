@@ -3,9 +3,29 @@
         <h5 class="mb-2 text-2xl font-bold tracking-tight block uppercase tracking-wide text-gray-900">
             {{blog.post_name}}
             <div class="text-sm">Posted by {{blog.user.name}}on {{blog.date_created}}</p>
-
+                {{blog.Comments.comment}}Comments
             </div>
             {{!-- <div>{{blogData.Comments.comment}}</div> --}}
     </div>
 
-    <h1>Comments</h1>
+    {{#each blogData.Comments as |comment|}}
+    <div class="card blue-grey lighten-4">
+        <div class="card-content hoverable">
+            <p>{{comment.comment}}</p>
+            <p>date posted: {{format_date comment.date_created}}</p>
+            <p>by: {{comment.user.name}}</p>
+            <div class="divider"></div>
+            {{/each}}
+
+            <div>
+                <div>
+                    <input type="hidden" id="comment-blog-id" value="{{blog.id}}" />
+                    <p>Comments</p>
+                    <input type="text" id="comment-content"></input>
+                </div>
+
+
+                <button class="btn btn-primary" id="add-comment">Add comment</button>
+            </div>
+
+            <script src="../js/addcomment.js"></script>

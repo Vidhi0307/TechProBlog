@@ -1,20 +1,35 @@
 const router = require('express').Router();
-const { Blogs } = require('../../models');
+const { Blogs, Comments } = require('../../models');
 
 router.post('/newblog', async (req, res) => {
     try {
-        console.log(req.body.post_name);
+
         const userBlogData = await Blogs.create({
             ...req.body,
             author_id: req.session.user_id
         });
 
-
-        res.redirect('/dashboard');
     } catch (err) {
         res.status(400).json(err);
     }
 });
+
+router.post('/blog/addcomment', async (req, res) => {
+    try {
+        console.log(req.body);
+        const commentData = await Comments.create({
+            ...req.body,
+            user_id: req.session.user_id
+
+        });
+
+
+    } catch (err) {
+        console.log(err)
+        res.status(400).json(err);
+    }
+});
+
 
 router.get('/blogs/:id', async (req, res) => {
     try {

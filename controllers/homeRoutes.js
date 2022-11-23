@@ -3,7 +3,6 @@ const { Blogs, User, Comments } = require('../models');
 const withAuth = require('../utils/auth');
 
 
-
 //route for homepage
 router.get('/', async (req, res) => {
   try {
@@ -13,18 +12,16 @@ router.get('/', async (req, res) => {
     });
     // Serialize data so the template can read it
     const blogsInfo = blogsData.map((blogs) => blogs.get({ plain: true }));
-    console.log(blogsInfo);
+
     // Pass serialized data and session flag into template
-    console.log("session id on homedpage" + req.session.logged_in)
+
 
     var activeUser;
-    console.log(req.session.user_id);
+
     if (req.session.user_id) {
-      console.log("Hello")
+
       const userData = await User.findByPk(req.session.user_id);
-
       const user = userData.get({ plain: true });
-
       activeUser = user;
     }
 
@@ -51,25 +48,22 @@ router.get('/dashboard', async (req, res) => {
       }
     });
     const myblogsInfo = myblogs.map((blogs) => blogs.get({ plain: true }));
+
     var activeUser;
-    console.log(req.session.user_id);
+
     if (req.session.user_id) {
-      console.log("Hello")
+
       const userData = await User.findByPk(req.session.user_id);
-
       const user = userData.get({ plain: true });
-
       activeUser = user;
     }
+
     res.render('dashboard', {
       myblogsInfo,
       activeUser,
       logged_in: req.session.logged_in
     });
-
-
   } catch (err) {
-
     res.status(500).json(err);
   }
 });
@@ -83,7 +77,6 @@ router.get('/postblog', async (req, res) => {
     });
 
   } catch (err) {
-
     res.status(500).json(err);
   }
 });
@@ -93,16 +86,33 @@ router.get('/blogs/:id', async (req, res) => {
   try {
 
     const blogData = await Blogs.findByPk(req.params.id, {
-      include: { model: User }
-    });
+      include: [
+        User,
+        {
+          model: Comments,
+          include: [
+            User
+          ]
+        },
 
+      ],
+    });
+    console.log(blogData);
     if (!blogData) {
       res.redirect('/404');
     }
     const blog = blogData.get({ plain: true });
+    /* 
+        const commentData = await Comments.findAll({
+          where: {
+            blog_id: req.params.id,
+          }
+        });
+        const commentsData = commentData.get({ plain: true }); */
 
     res.render('blogview', {
       blog,
+      //  commentsData,
       logged_in: req.session.logged_in
     });
   } catch (err) {
@@ -131,28 +141,6 @@ router.get('/myblogs/:id', async (req, res) => {
   }
 });
 
-
-
-/* router.get('/:id', async (req, res) => {
-  try {
-    console.log("HEYYYYYYYY Vidhi" + req.params.id)
-    const blogData = await Blogs.findByPk(req.params.id, {
-      include: { model: User }
-    });
-
-    if (!blogData) {
-      res.redirect('/404');
-    }
-    const blog = blogData.get({ plain: true });
-
-    res.render('modifyblog', {
-      blog,
-      logged_in: req.session.logged_in
-    });
-  } catch (err) {
-    res.status(500).json(err);
-  }
-}); */
 
 router.get('/login', (req, res) => {
   // If the user is already logged in, redirect the request to another route
