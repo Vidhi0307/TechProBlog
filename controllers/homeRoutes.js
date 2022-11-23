@@ -75,7 +75,7 @@ router.get('/postblog', async (req, res) => {
     res.render('createpost', {
       logged_in: req.session.logged_in
     });
-
+    res.status(200).json("success");
   } catch (err) {
     res.status(500).json(err);
   }

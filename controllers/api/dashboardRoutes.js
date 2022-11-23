@@ -9,7 +9,7 @@ router.post('/newblog', async (req, res) => {
             ...req.body,
             author_id: req.session.user_id
         });
-
+        res.status(200).json("success");
 
     } catch (err) {
         res.status(400).json(err);
