@@ -1,5 +1,6 @@
 const router = require('express').Router();
 const { Blogs, Comments } = require('../../models');
+const withAuth = require('../../utils/auth');
 
 router.post('/newblog', async (req, res) => {
     try {
@@ -8,6 +9,7 @@ router.post('/newblog', async (req, res) => {
             ...req.body,
             author_id: req.session.user_id
         });
+
 
     } catch (err) {
         res.status(400).json(err);
@@ -22,7 +24,7 @@ router.post('/blog/addcomment', async (req, res) => {
             user_id: req.session.user_id
 
         });
-
+        res.status(200).json("success");
 
     } catch (err) {
         console.log(err)
@@ -41,11 +43,6 @@ router.get('/blogs/:id', async (req, res) => {
         }
         const blog = blogData.get({ plain: true });
 
-        /*   var correctUser = false;
-     
-         if (req.session.user_id == user_id) {
-           correctUser = true
-         };  */
 
         res.render('modifyblog', {
             blog,
@@ -57,10 +54,10 @@ router.get('/blogs/:id', async (req, res) => {
 });
 
 
-router.delete('/delete/:id', async (req, res) => {
+router.delete('/delete/:id', withAuth, async (req, res) => {
     try {
 
-        console.log("BLLLLLLLLLLLLLOOOOG id" + req.params.id)
+
         const blog = await Blogs.destroy({
             where: {
                 id: req.params.id,
@@ -78,7 +75,7 @@ router.delete('/delete/:id', async (req, res) => {
     }
 });
 
-router.put('/:id', async (req, res) => {
+router.put('/:id', withAuth, async (req, res) => {
     try {
 
         console.log("PUT REQUEST" + req.body);

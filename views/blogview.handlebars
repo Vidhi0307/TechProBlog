@@ -1,31 +1,45 @@
 <div class="flex flex-col justify-space-around p-5 m-3 leading-normal">
-    <div class="flex-row ">
-        <h5 class="mb-2 text-2xl font-bold tracking-tight block uppercase tracking-wide text-gray-900">
-            {{blog.post_name}}
-            <div class="text-sm">Posted by {{blog.user.name}}on {{blog.date_created}}</p>
-                {{blog.Comments.comment}}Comments
-            </div>
-            {{!-- <div>{{blogData.Comments.comment}}</div> --}}
+
+    <div class="p-3  w-auto rounded-lg shadow-lg bg-white border-4 border-gray-500">
+
+        <div class="flex flex-row justify-space-between"><span class="font-bold text-2xl">{{blog.post_name}}</span>
+            <span class="text-sm">Posted by {{blog.user.name}}on {{blogs.date_created}}</span>
+        </div>
+
+        <div
+            class=" py-3 mb-2 text-l font-bold tracking-tight block uppercase tracking-wide mb-6 text-gray-500 md:text-lg">
+            {{blog.post_desc}}
+        </div>
+
     </div>
 
-    {{#each blogData.Comments as |comment|}}
-    <div class="card blue-grey lighten-4">
-        <div class="card-content hoverable">
-            <p>{{comment.comment}}</p>
-            <p>date posted: {{format_date comment.date_created}}</p>
-            <p>by: {{comment.user.name}}</p>
-            <div class="divider"></div>
-            {{/each}}
-
-            <div>
-                <div>
-                    <input type="hidden" id="comment-blog-id" value="{{blog.id}}" />
-                    <p>Comments</p>
-                    <input type="text" id="comment-content"></input>
-                </div>
 
 
-                <button class="btn btn-primary" id="add-comment">Add comment</button>
-            </div>
+    <div class="flex flex-col px-3 py-4 my-2  w-auto rounded-lg shadow-lg bg-white border-4 border-gray-500">
+        <p>Comments</p>
 
-            <script src="../js/addcomment.js"></script>
+
+        {{#each commentsData as |comments|}}
+
+        <div class="p-2 m-2 bg-gray-200 flex justify-space-between border-black">
+            <div> {{comments.comment}}</div>
+            <div> by {{comments.user.name}}</div>
+        </div>
+
+
+
+        {{/each}}
+
+        {{#if logged_in}}
+        <div class="my-2">
+            <input type="hidden" id="comment-blog-id" value="{{blog.id}}" />
+
+            <input type="text" id="comment-content"></input>
+            <button class="btn btn-primary" id="add-comment">Add comment</button>
+        </div>
+
+        {{/if}}
+
+    </div>
+</div>
+<script src="../js/addcomment.js"></script>

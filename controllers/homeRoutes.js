@@ -38,7 +38,7 @@ router.get('/', async (req, res) => {
 
 
 //route for dashboard
-router.get('/dashboard', async (req, res) => {
+router.get('/dashboard', withAuth, async (req, res) => {
   try {
 
     console.log(req.session.user_id);
@@ -86,36 +86,32 @@ router.get('/blogs/:id', async (req, res) => {
   try {
 
     const blogData = await Blogs.findByPk(req.params.id, {
-      include: [
-        User,
-        {
-          model: Comments,
-          include: [
-            User
-          ]
-        },
-
-      ],
+      include: { model: User }
     });
-    console.log(blogData);
+    //console.log(blogData);
     if (!blogData) {
       res.redirect('/404');
     }
     const blog = blogData.get({ plain: true });
-    /* 
-        const commentData = await Comments.findAll({
-          where: {
-            blog_id: req.params.id,
-          }
-        });
-        const commentsData = commentData.get({ plain: true }); */
 
+
+    const commentData = await Comments.findAll({
+      include: { model: User },
+      where: {
+        blog_id: req.params.id,
+      }
+    });
+    const commentsData = commentData.map((comments) => comments.get({ plain: true }));
+
+
+    console.log("Comment data" + commentsData);
     res.render('blogview', {
       blog,
-      //  commentsData,
+      commentsData,
       logged_in: req.session.logged_in
     });
   } catch (err) {
+    console.log(err)
     res.status(500).json(err);
   }
 });

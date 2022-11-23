@@ -1,21 +1,18 @@
-{{#each myblogsInfo as |userblogs|}}
-<a href="myblogs/{{userblogs.id}}"
-  class="flex flex-col items-center bg-white rounded-lg border shadow-md md:flex-row hover:bg-gray-100 adList">
+<div class="flex flex-col  w-full">
+  {{#each myblogsInfo as |userblogs|}}
+  <a href="myblogs/{{userblogs.id}}">
+    <div class="flex flex-col m-4 border-4 border-black-200 ">
 
-  <div class="flex flex-col justify-between p-4 leading-normal">
-    <h5 class="mb-2 text-2xl font-bold tracking-tight block uppercase tracking-wide text-gray-900">
-      {{userblogs.post_name}} <h5
-        class="mb-2 text-xl font-bold tracking-tight gitblock uppercase tracking-wide mb-6 text-gray-500 md:text-lg">
-        ({{userblogs.post_desc}})</h5>
-    </h5>
-    <p class="mb-3 font-normal text-gray-700">{{userblogs.date_created}}</p>
+      <div class="text-2xl p-3 bg-gray-200">
+        {{userblogs.post_name}}
+        <p class="mb-3  text-sm font-normal text-gray-700">{{format_date userblogs.date_created}}</p>
+      </div>
+    </div>
+  </a>
+  {{/each}}
+  <div class=" flex flex-col items-center  ">
+    <button class="btn btn-primary text-l" onclick=" window.location.href='/postblog'">
+      New post
+    </button>
   </div>
-</a>
-{{/each}}
-<div class="bg-gray-50 px-4 py-3 align-center  text-right sm:px-6">
-  <button
-    class="transition duration-500 bg-orange-500 hover:bg-orange-700 text-white font-bold py-2 px-4 rounded focus:outline-none focus:shadow-outline"
-    onclick=" window.location.href='/postblog'">
-    New post
-  </button>
 </div>

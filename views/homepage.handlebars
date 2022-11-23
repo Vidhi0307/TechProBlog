@@ -1,19 +1,22 @@
-{{#each blogsInfo as |blogs|}}
-<a href="/blogs/{{blogs.id}}"
-  class="flex flex-col items-center bg-white rounded-lg border shadow-md md:flex-row hover:bg-gray-100 adList">
+<div class="flex flex-col w-full">
 
-  <div class="flex flex-col justify-space-around p-5 m-3 leading-normal">
-    <div class="flex-row ">
-      <h5 class="mb-2 text-2xl font-bold tracking-tight block uppercase tracking-wide text-gray-900">
-        {{blogs.post_name}}
-        <div class="text-sm">Posted by {{blogs.user.name}}on {{blogs.date_created}}</p>
-        </div>
+  {{#each blogsInfo as |blogs|}}
+  <a href="/blogs/{{blogs.id}}">
+
+
+    <div class="p-6 m-4 w-auto rounded-lg shadow-lg bg-white border-4 border-gray-500">
+
+      <div class="flex flex-row justify-space-between border-4 border-black-200  bg-gray-200"><span
+          class="font-bold text-2xl">{{blogs.post_name}}</span>
+        <span class="text-sm">Posted by {{blogs.user.name}} on {{format_date blogs.date_created}}</span>
+      </div>
+
+      <div
+        class=" py-3 mb-2 text-l font-bold tracking-tight block uppercase tracking-wide mb-6 text-gray-500 md:text-lg">
+        {{blogs.post_desc}}
+      </div>
+
     </div>
-
-    <h5 class="mb-2 text-xl font-bold tracking-tight block uppercase tracking-wide mb-6 text-gray-500 md:text-lg">
-      ({{blogs.post_desc}})</h5>
-    </h5>
-
-  </div>
-</a>
-{{/each}}
+  </a>
+  {{/each}}
+</div>
